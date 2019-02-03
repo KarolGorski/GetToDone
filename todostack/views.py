@@ -21,7 +21,7 @@ def manage(request):
             for todo_id in checkedlist:
                 todo = ToDo.objects.get(id=int(todo_id))
                 todo.delete()
-    return render(request, "index.html", {"todos": todos, "categories": categories})
+    return render(request, "manage.html", {"todos": todos, "categories": categories})
 
 def allByCategories(request):
     todos = ToDo.objects.all()
