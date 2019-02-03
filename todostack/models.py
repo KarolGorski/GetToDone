@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils import timezone
+from colorfield.fields import ColorField
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    color = ColorField(default='#FF0000')
 
     class Meta:
         verbose_name = "Category"
@@ -16,24 +18,26 @@ class Category(models.Model):
 class Difficulty(models.Model):
     name = models.CharField(max_length=100)
     current_multiplier = models.FloatField()
+    color = ColorField(default='#FF0000')
 
     class Meta:
         verbose_name = "Difficulty"
         verbose_name_plural = "Difficulties"
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 
 class Priority(models.Model):
     name = models.CharField(max_length=100)
     priority_num = models.IntegerField()
+    color = ColorField(default='#FF0000')
 
     class Meta:
         verbose_name = "Priority"
         verbose_name_plural = "Priorities"
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 
