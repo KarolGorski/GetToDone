@@ -48,12 +48,12 @@ def start(request):
     difficulties = Difficulty.objects.all()
     priorities = Priority.objects.all()
 
+    if "manage" in request.GET:
+        return redirect('/manage')
+
     if request.method == "POST":
         if "startApp" in request.POST:
             workingTime = request.POST["workingTime"]
-            request.session['selected category'] = request.POST["category_select"]
-            request.session['selected difficulty'] = request.POST["difficulty_select"]
-            request.session['selected priority'] = request.POST["priority_select"]
             request.session['workingTime'] = parseTime(workingTime)
             return redirect('/work')
 
@@ -63,13 +63,33 @@ def start(request):
 
 import operator
 def work(request):
+    todoss = ToDo.objects.all()
+    if(len(todoss)==0):
+        return redirect('/start')
+    todoss = sorted(todoss, key=lambda todo: todo.estimatedTime)
+    time = 0
+    todos =[]
+    for todo in todoss:
+        time+=todo.estimatedTime
+        if time<=request.session['workintTime']:
+            todos.append(todo)
+        else:
+            break
 
-    todos = ToDo.objects.all()
-    todos = sorted(todos, key=lambda todo: todo.estimatedTime)
-    print(todos)
-    #for todo in todos:
     todo=todos[0]
     todos = todos[1:len(todos)]
+
+    if request.method == "POST":
+        if "taskFinish" in request.POST:
+            workedTime = request.POST['workingTime']
+            Difficulty.objects.get(id=todo.difficulty.id).current_multiplier \
+                += (parseTime(workedTime)-todo.estimatedTime)/2
+
+            ToDo.objects.filter(id=todo.id).delete()
+            return redirect('/work')
+
+
+
     return render(request,"work.html", {"firstTodo":todo,
                                         "todos": todos})
 

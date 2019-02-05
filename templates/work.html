@@ -27,6 +27,11 @@
                     <span class="attribute" style="background:{{ firstTodo.priority.color }}">{{ firstTodo.priority }}</span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ firstTodo.due_date }}</strong>
                     <p style="font-size:15px; margin-left: 20px" >Task is estimated for: {{ firstTodo.estimatedTime}} minutes. System estimates it for: {{ firstTodo.estimatedTime|mul:firstTodo.difficulty.current_multiplier }}</p>
+                    <div class="inputContainer half" >
+                        <input  type="text" id="description" class="taskName" placeholder="Example: 10,30 ( for 10 hours 30 minutes )" name="workingTime" required>
+                        <label for="workingTime" style="color:#545454">Finishing time</label>
+                    </div>
+                     <button class="taskDelete" name="taskFinish" formnovalidate="" type="submit" onclick="" formmethod="post">Finish Task</button>
             </li>
             {% for todo in todos %} <!-- django template lang - for loop -->
                 <li class="taskItemSmall">
@@ -36,7 +41,7 @@
                     <span class="attribute" style="background:{{ todo.difficulty.color }}">{{ todo.difficulty }}</span>
                     <span class="attribute" style="background:{{ todo.priority.color }}">{{ todo.priority }}</span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.due_date }}</strong>
-                      <p style="font-size:10px; margin-left: 20px" >Task is estimated for: {{ todo.estimatedTime}} minutes</p>
+                    <p style="font-size:10px; margin-left: 20px" >Task is estimated for: {{ todo.estimatedTime}} minutes</p>
                 </li>
             {% endfor %}
 
