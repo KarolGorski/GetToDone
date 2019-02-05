@@ -71,7 +71,7 @@ def work(request):
     todos =[]
     for todo in todoss:
         time+=todo.estimatedTime
-        if time<=request.session['workintTime']:
+        if time<=request.session['workingTime']:
             todos.append(todo)
         else:
             break
