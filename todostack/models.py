@@ -49,7 +49,7 @@ class ToDo(models.Model):
     category = models.ForeignKey(Category, default="general", on_delete=models.PROTECT)
     difficulty = models.ForeignKey(Difficulty, default=3, on_delete=models.PROTECT)
     priority = models.ForeignKey(Priority, default=3, on_delete=models.PROTECT)
-    estimatedTime = models.CharField(max_length=10)
+    estimatedTime = models.IntegerField()
 
     class Meta:
         ordering = ["created"]

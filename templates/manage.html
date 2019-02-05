@@ -16,6 +16,10 @@
                     <input type="text" id="description" class="taskName" placeholder="What do you need to do?" name="description" required>
                     <label for="description">Description</label>
                 </div>
+                <div class="inputContainer">
+                    <input type="text" id="description" class="taskName" placeholder="Example: 10,30 ( for 10 hours 30 minutes )" name="workingTime" required>
+                    <label for="workingTime">Estimate your task!</label>
+                </div>
                 <div class="inputContainer half last">
                     <i class="fa fa-caret-down selectArrow"></i>
                     <select id="category" class="taskCategory" name="category_select">
@@ -56,6 +60,7 @@
                 </div>
             <ul class="taskList">
                 <li>
+                    <span class="attributeTitle" style="width:30px">Est.</span>
                     <span class="attributeTitle">Category</span>
                     <span class="attributeTitle">Difficulty</span>
                     <span class="attributeTitle">Priority</span>
@@ -66,6 +71,7 @@
                 <li class="taskItem">
                     <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
                     <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
+                    <span class="attribute" style="background:#8da6a0; color:white; width:30px;">{{ todo.estimatedTime }}</span>
                     <span class="attribute" style="background:{{ todo.category.color }}">{{ todo.category }}</span>
                     <span class="attribute" style="background:{{ todo.difficulty.color }}">{{ todo.difficulty }}</span>
                     <span class="attribute" style="background:{{ todo.priority.color }}">{{ todo.priority }}</span>

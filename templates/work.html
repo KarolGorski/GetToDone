@@ -9,23 +9,37 @@
             <form action="" method="post">
             {% csrf_token %} <!-- csrf token for basic security -->
                 <ul class="taskList">
-                    <li>
-                        <span class="attributeTitle">Category</span>
-                        <span class="attributeTitle">Difficulty</span>
-                        <span class="attributeTitle">Priority</span>
-                    </li>
-                </ul>
-                <ul class="taskList">
-                {% for todo in todos %} <!-- django template lang - for loop -->
-                    <li class="taskItem">
-                        <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
-                        <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
-                        <span class="attribute" style="background:{{ todo.category.color }}">{{ todo.category }}</span>
-                        <span class="attribute" style="background:{{ todo.difficulty.color }}">{{ todo.difficulty }}</span>
-                        <span class="attribute" style="background:{{ todo.priority.color }}">{{ todo.priority }}</span>
-                        <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
-                    </li>
-                {% endfor %}
+                <li class="taskItem"></li>
+                <li>
+                    <span class="attributeTitle" style="width:30px">Est.</span>
+                    <span class="attributeTitle">Category</span>
+                    <span class="attributeTitle">Difficulty</span>
+                    <span class="attributeTitle">Priority</span>
+                </li>
+            </ul>
+            <ul class="taskList">
+            {% load mathfilters %}
+            <li class="taskItemBig"  style="background-color:#82cd82">
+                     <label style="margin-left: 20px" for="{{ firstTodo.id }}"><span class="complete-">{{ firstTodo.title }}</span></label>
+                    <span class="attribute" style="background:#8da6a0; color:white; width:30px;">{{ firstTodo.estimatedTime }}</span>
+                    <span class="attribute" style="background:{{ firstTodo.category.color }}">{{ firstTodo.category }}</span>
+                    <span class="attribute" style="background:{{ firstTodo.difficulty.color }}">{{ firstTodo.difficulty }}</span>
+                    <span class="attribute" style="background:{{ firstTodo.priority.color }}">{{ firstTodo.priority }}</span>
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>{{ firstTodo.due_date }}</strong>
+                    <p style="font-size:15px; margin-left: 20px" >Task is estimated for: {{ firstTodo.estimatedTime}} minutes. System estimates it for: {{ firstTodo.estimatedTime|mul:firstTodo.difficulty.current_multiplier }}</p>
+            </li>
+            {% for todo in todos %} <!-- django template lang - for loop -->
+                <li class="taskItemSmall">
+                    <label style="margin-left: 20px" for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
+                    <span class="attribute" style="background:#8da6a0; color:white; width:30px;">{{ todo.estimatedTime }}</span>
+                    <span class="attribute" style="background:{{ todo.category.color }}">{{ todo.category }}</span>
+                    <span class="attribute" style="background:{{ todo.difficulty.color }}">{{ todo.difficulty }}</span>
+                    <span class="attribute" style="background:{{ todo.priority.color }}">{{ todo.priority }}</span>
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.due_date }}</strong>
+                      <p style="font-size:10px; margin-left: 20px" >Task is estimated for: {{ todo.estimatedTime}} minutes</p>
+                </li>
+            {% endfor %}
+
             </ul><!-- taskList -->
             </form>
             </div><!-- content -->

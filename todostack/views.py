@@ -15,13 +15,15 @@ def manage(request):
             category = request.POST["category_select"]
             difficulty = request.POST["difficulty_select"]
             priority = request.POST["priority_select"]
+            estimatedTime = parseTime(request.POST["workingTime"])
             content = title + " -- " + date + " " + category
             Todo = ToDo(title = title,
                         content = content,
                         created= date,
                         category = Category.objects.get(name=category),
                         difficulty = Difficulty.objects.get(name=difficulty),
-                        priority = Priority.objects.get(name=priority))
+                        priority = Priority.objects.get(name=priority),
+                        estimatedTime=estimatedTime)
             Todo.save()
             return redirect("/manage")
 
@@ -59,21 +61,32 @@ def start(request):
                                           "difficulties": difficulties,
                                           "priorities": priorities})
 
-
+import operator
 def work(request):
 
     todos = ToDo.objects.all()
-
+    todos = sorted(todos, key=lambda todo: todo.estimatedTime)
+    print(todos)
     #for todo in todos:
-
-    return render(request,"work.html", {"todos": todos})
+    todo=todos[0]
+    todos = todos[1:len(todos)]
+    return render(request,"work.html", {"firstTodo":todo,
+                                        "todos": todos})
 
 
 
 def parseTime(text):
     text.replace(" ","")
     tab = text.split(',')
-    return int(tab[0])*60 + int(tab[1])
+    if len(tab)>1:
+        return int(tab[0])*60 + int(tab[1])
+    if len(tab) ==1:
+        return int(tab[0])*60
+
+def parseToTime(num):
+    minutes = num%60
+    hours = num/60
+    return str(hours)+","+str(minutes)
 
 
 
