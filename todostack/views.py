@@ -34,15 +34,47 @@ def manage(request):
         if "startApp" in request.GET:
             return redirect('/start')
 
-    return render(request, "manage.html", {"todos": todos, "categories": categories, "difficulties" : difficulties, "priorities" : priorities})
+    return render(request, "manage.html", {"todos": todos,
+                                           "categories": categories,
+                                           "difficulties" : difficulties,
+                                           "priorities" : priorities})
 
 
 def start(request):
     todos = ToDo.objects.all()
     categories = Category.objects.all()
+    difficulties = Difficulty.objects.all()
+    priorities = Priority.objects.all()
 
-    wow = [[cat, [todo]] for cat in categories for todo in todos if todo.category == cat]
-    return HttpResponse("Hello Start Panel!")
+    if request.method == "POST":
+        if "startApp" in request.POST:
+            workingTime = request.POST["workingTime"]
+            request.session['selected category'] = request.POST["category_select"]
+            request.session['selected difficulty'] = request.POST["difficulty_select"]
+            request.session['selected priority'] = request.POST["priority_select"]
+            request.session['workingTime'] = parseTime(workingTime)
+            return redirect('/work')
 
-def currentTask(request):
-    return HttpResponse("Hello current Task View!")
+    return render(request, "start.html", {"categories": categories,
+                                          "difficulties": difficulties,
+                                          "priorities": priorities})
+
+
+def work(request):
+
+    todos = ToDo.objects.all()
+
+    #for todo in todos:
+
+    return render(request,"work.html", {"todos": todos})
+
+
+
+def parseTime(text):
+    text.replace(" ","")
+    tab = text.split(',')
+    return int(tab[0])*60 + int(tab[1])
+
+
+
+ #wow = [(cat, [todo]) for cat in categories for todo in todos if todo.category == cat]

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div django-app="todostack">
+    <div class="container  centerAlign">
+            <div class="content centerAlign">
+            <h1>To Do Stack!</h1>
+            <p class="tagline">Set up your work!</p>
+            <form action="" method="post">
+            {% csrf_token %} <!-- csrf token for basic security -->
+
+                <div class="inputContainer">
+                    <input type="text" id="description" class="taskName" placeholder="Example: 10,30 ( for 10 hours 30 minutes )" name="workingTime" required>
+                    <label for="workingTime">Time you have for work now</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="category_select" class="taskCategory" name="category_select">
+                    <option class="disabled" value="">Filter by category</option>
+                    {% for category in categories %}
+                        <option class="" value="{{ category.name }}" name="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="category">Category</label>
+                </div>
+                <div class="inputContainer">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="difficulty" class="taskCategory" name="difficulty_select">
+                    <option class="disabled" value="">Filter by difficulty</option>
+                    {% for difficulty in difficulties %}
+                        <option class="" value="{{ difficulty.name }}" name="{{ difficulty.name }}">{{ difficulty.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="category">Difficulty</label>
+                </div>
+                 <div class="inputContainer">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="priority" class="taskCategory" name="priority_select">
+                    <option class="disabled" value="">Filter by priority</option>
+                    {% for priority in priorities %}
+                        <option class="" value="{{ priority.name }}" name="{{ priority.name }}">{{ priority.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="category">Difficulty</label>
+                </div>
+                <div class="row">
+                    <button class="startApp" name="startApp" type="submit">Start the stack!</button>
+                </div>
+            </form>
+            </div><!-- content -->
+
+ </div><!-- container -->
+</div>
+{%  endblock %}

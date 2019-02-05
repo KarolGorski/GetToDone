@@ -6,5 +6,5 @@ urlpatterns = [
     path('', start, name="ToDo-Stack Start!"),
     path('start', start, name="ToDo-Stack Start!"),
     path('manage', manage, name="ToDo-Stack Manage"),
-    path('currentTask', currentTask, name="Work!")
+    path('work', work, name="Work!")
 ]

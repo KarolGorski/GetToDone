@@ -9,7 +9,7 @@ html {
     font-size: 100%;
 }
 body {
-    background: #b1f6cb;
+    background: #e7f6c7;
     font-family: 'Open Sans',sans-serif;
 }
 /* super basic grid structure */
@@ -26,6 +26,12 @@ body {
     text-align: center;
     color: #777;
 
+}
+
+.centerAlign{
+    alignment: center;
+    horiz-align: center;
+    align-content: center;
 }
 
 .row {
@@ -183,7 +189,7 @@ button {
 }
 
 .startApp {
-    background: #3875d7;
+    background: #63abd6;
 }
 /* task styles */
 .taskList {
@@ -220,6 +226,32 @@ button {
     margin-right: 10px;
     font-size: 16px;
 }
+
+.attribute{
+    display: inline-block;
+    font-size: 10px;
+    background: #444;
+    vertical-align: middle;
+    padding: 10px;
+    width: 75px;
+    text-align: center;
+    border-radius: 2px;
+    float: right;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+
+.attributeTitle{
+    font-size: 10px;
+    vertical-align: middle;
+    width: 75px;
+    text-align: center;
+    float: right;
+    font-weight: normal;
+    margin-right: 20px;
+}
+
 [class*='category-'] {
     display: inline-block;
     font-size: 10px;
